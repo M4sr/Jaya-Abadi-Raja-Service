@@ -41,11 +41,43 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (adminThemeToggle) adminThemeToggle.addEventListener('click', toggleTheme);
 
+    // === Mobile Sidebar Logic ===
+    const adminSidebar = document.getElementById('adminSidebar');
+    const openSidebarBtn = document.getElementById('openSidebarBtn');
+    const closeSidebarBtn = document.getElementById('closeSidebarBtn');
+    const sidebarOverlay = document.getElementById('sidebarOverlay');
+
+    function openSidebar() {
+        adminSidebar.classList.remove('-translate-x-full');
+        sidebarOverlay.classList.remove('hidden');
+        // Small delay to allow display block to apply before opacity transition
+        setTimeout(() => sidebarOverlay.classList.remove('opacity-0'), 10);
+    }
+
+    function closeSidebar() {
+        adminSidebar.classList.add('-translate-x-full');
+        sidebarOverlay.classList.add('opacity-0');
+        setTimeout(() => sidebarOverlay.classList.add('hidden'), 300); // Wait for transition
+    }
+
+    if (openSidebarBtn) openSidebarBtn.addEventListener('click', openSidebar);
+    if (closeSidebarBtn) closeSidebarBtn.addEventListener('click', closeSidebar);
+    if (sidebarOverlay) sidebarOverlay.addEventListener('click', closeSidebar);
+
     // === Navigation Logic ===
     const navLinks = document.querySelectorAll('.nav-link');
     const pageTitle = document.getElementById('pageTitle');
 
-    // Navigation Logic
+    // Close sidebar on mobile when a link is clicked
+    navLinks.forEach(link => {
+        link.addEventListener('click', () => {
+            if (window.innerWidth < 768) {
+                closeSidebar();
+            }
+        });
+    });
+
+    // Navigation Logic Main
     const contentSections = document.querySelectorAll('.content-section');
 
     navLinks.forEach(link => {
