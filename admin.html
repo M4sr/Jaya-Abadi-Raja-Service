@@ -140,7 +140,7 @@
             </header>
 
             <!-- Scrollable Content -->
-            <div class="flex-1 overflow-y-auto p-8" id="mainContent">
+            <div class="flex-1 overflow-y-auto p-4 md:p-8" id="mainContent">
 
                 <!-- Section: Dashboard Overview -->
                 <div id="section-dashboard" class="content-section space-y-6">
@@ -251,14 +251,14 @@
                 <!-- Section: Orders -->
                 <div id="section-orders" class="content-section hidden space-y-6">
                     <div
-                        class="bg-white dark:bg-dark-card p-6 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-800">
-                        <div class="flex justify-between items-center mb-6">
+                        class="bg-white dark:bg-dark-card p-4 md:p-6 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-800">
+                        <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-6">
                             <h3 class="font-poppins font-bold text-dark dark:text-white">Daftar Pesanan</h3>
-                            <div class="flex gap-2">
+                            <div class="flex gap-2 w-full md:w-auto">
                                 <input type="text" placeholder="Cari ID/Nama..."
-                                    class="text-sm bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl px-4 py-2 focus:outline-none focus:border-primary text-dark dark:text-white">
+                                    class="w-full text-sm bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl px-4 py-2 focus:outline-none focus:border-primary text-dark dark:text-white">
                                 <button
-                                    class="bg-primary text-white px-4 py-2 rounded-xl text-sm font-medium hover:bg-primary-dark transition-colors flex items-center gap-1"><i
+                                    class="shrink-0 bg-primary text-white px-4 py-2 rounded-xl text-sm font-medium hover:bg-primary-dark transition-colors flex items-center gap-1"><i
                                         class="ph-bold ph-funnel"></i> Filter</button>
                             </div>
                         </div>
@@ -284,10 +284,10 @@
 
                 <!-- Section: Services -->
                 <div id="section-services" class="content-section hidden space-y-6">
-                    <div class="flex justify-between items-center">
+                    <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
                         <h3 class="font-poppins font-bold text-dark dark:text-white">Katalog Layanan</h3>
                         <button
-                            class="bg-primary text-white px-4 py-2 rounded-xl text-sm font-medium hover:bg-primary-dark transition-colors flex items-center gap-1"><i
+                            class="w-full sm:w-auto bg-primary text-white px-4 py-2 rounded-xl text-sm font-medium hover:bg-primary-dark transition-colors flex justify-center items-center gap-1"><i
                                 class="ph-bold ph-plus"></i> Tambah Layanan</button>
                     </div>
                     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="servicesGrid">
@@ -297,10 +297,10 @@
 
                 <!-- Section: Technicians -->
                 <div id="section-technicians" class="content-section hidden space-y-6">
-                    <div class="flex justify-between items-center">
+                    <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
                         <h3 class="font-poppins font-bold text-dark dark:text-white">Daftar Teknisi</h3>
                         <button
-                            class="bg-primary text-white px-4 py-2 rounded-xl text-sm font-medium hover:bg-primary-dark transition-colors flex items-center gap-1"><i
+                            class="w-full sm:w-auto bg-primary text-white px-4 py-2 rounded-xl text-sm font-medium hover:bg-primary-dark transition-colors flex justify-center items-center gap-1"><i
                                 class="ph-bold ph-user-plus"></i> Tambah Teknisi</button>
                     </div>
                     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="techniciansGrid">
