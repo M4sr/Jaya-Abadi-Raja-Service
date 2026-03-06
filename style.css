@@ -1,0 +1,73 @@
+/* Google Fonts Setup happens in HTML */
+
+/* Base Styles & PWA Safe Area for Mobile Apps */
+:root {
+  --safe-area-inset-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+html, body {
+  -webkit-tap-highlight-color: transparent;
+  scroll-behavior: smooth;
+}
+
+/* Hide scrollbar for clean app-like feel */
+::-webkit-scrollbar {
+  width: 0px;
+  background: transparent;
+}
+
+/* Utilities */
+.pb-safe-area {
+  padding-bottom: calc(0.75rem + var(--safe-area-inset-bottom));
+}
+
+.text-balance {
+  text-wrap: balance;
+}
+
+/* Shimmer animation for loading states */
+@keyframes shimmer {
+  0% {
+    background-position: -1000px 0;
+  }
+  100% {
+    background-position: 1000px 0;
+  }
+}
+
+.animate-shimmer {
+  animation: shimmer 2s infinite linear;
+  background: linear-gradient(to right, #f6f7f8 4%, #edeef1 25%, #f6f7f8 36%);
+  background-size: 1000px 100%;
+}
+
+.dark .animate-shimmer {
+  background: linear-gradient(to right, #1e293b 4%, #334155 25%, #1e293b 36%);
+}
+
+/* Custom Float Animation */
+@keyframes float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-5px); }
+  100% { transform: translateY(0px); }
+}
+
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+/* Modal Entry Animation */
+@keyframes slideUpFade {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.modal-enter {
+  animation: slideUpFade 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}

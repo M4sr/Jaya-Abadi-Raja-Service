@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="theme-color" content="#1E6FDB">
+    <title>Panel Teknisi | Jaya Abadi Raja Service</title>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@600;700&display=swap"
+        rel="stylesheet">
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: { primary: '#1E6FDB', secondary: '#F5F8FC', dark: '#1e293b', 'dark-card': '#0f172a', text: '#334155', 'text-light': '#64748b' },
+                    fontFamily: { poppins: ['Poppins', 'sans-serif'], inter: ['Inter', 'sans-serif'] }
+                }
+            }
+        }
+    </script>
+    <link rel="stylesheet" href="style.css">
+    <link rel="manifest" href="manifest.json">
+</head>
+
+<body class="bg-gray-100 dark:bg-dark text-text font-inter antialiased transition-colors">
+
+    <div id="app"
+        class="max-w-md mx-auto min-h-screen bg-white shadow-md relative overflow-hidden dark:bg-dark-card transition-colors flex flex-col">
+
+        <!-- Header -->
+        <header class="bg-primary px-5 pt-8 pb-16 text-white rounded-b-[2.5rem] relative shrink-0">
+            <div class="flex justify-between items-center mb-6">
+                <div>
+                    <h1 class="font-poppins font-bold text-lg">Panel Teknisi</h1>
+                    <p class="text-[10px] text-white/80">Jaya Abadi Raja Service</p>
+                </div>
+                <div class="flex gap-2 items-center">
+                    <span id="gpsStatus"
+                        class="bg-white/20 px-2 py-1 rounded-full text-[9px] font-bold flex items-center gap-1 backdrop-blur-sm">
+                        <span class="w-1.5 h-1.5 rounded-full bg-red-400 animate-pulse block" id="gpsIndicator"></span>
+                        GPS OFF
+                    </span>
+                    <button id="techThemeToggle"
+                        class="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center hover:bg-white/20 transition-colors">
+                        <i class="ph-bold ph-moon"></i>
+                    </button>
+                    <button
+                        class="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center hover:bg-white/20 transition-colors text-red-100">
+                        <i class="ph-bold ph-sign-out"></i>
+                    </button>
+                </div>
+            </div>
+
+            <div class="flex justify-between items-center">
+                <div class="flex items-center gap-3">
+                    <img src="https://ui-avatars.com/api/?name=Agus+Teknisi&background=fff&color=1E6FDB" alt="Tech"
+                        class="w-12 h-12 rounded-full border-2 border-white/50">
+                    <div>
+                        <h2 class="font-bold text-sm">Agus Setiawan</h2>
+                        <p class="text-[10px] text-white/80"><i class="ph-fill ph-star text-yellow-400"></i> 4.9 (120
+                            Ulasan)</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Decor -->
+            <i class="ph-duotone ph-wrench absolute right-4 bottom-4 text-6xl text-white/10 transform rotate-45"></i>
+        </header>
+
+        <!-- Main Content -->
+        <main class="flex-1 px-5 -mt-10 pb-20 overflow-y-auto relative z-10">
+
+            <!-- Quick Stats -->
+            <div class="grid grid-cols-2 gap-3 mb-6">
+                <div
+                    class="bg-white dark:bg-dark p-4 rounded-2xl shadow-lg border border-gray-100 dark:border-gray-800 flex items-center gap-3">
+                    <div
+                        class="w-10 h-10 bg-blue-50 dark:bg-blue-900/30 rounded-full flex items-center justify-center text-primary">
+                        <i class="ph-fill ph-clipboard-text text-xl"></i>
+                    </div>
+                    <div>
+                        <h4 class="text-[10px] text-text-light dark:text-gray-400">Tugas Hari Ini</h4>
+                        <p class="text-sm font-bold text-dark dark:text-white">4 Tugas</p>
+                    </div>
+                </div>
+                <div
+                    class="bg-white dark:bg-dark p-4 rounded-2xl shadow-lg border border-gray-100 dark:border-gray-800 flex items-center gap-3">
+                    <div
+                        class="w-10 h-10 bg-green-50 dark:bg-green-900/30 rounded-full flex items-center justify-center text-green-500">
+                        <i class="ph-fill ph-check-circle text-xl"></i>
+                    </div>
+                    <div>
+                        <h4 class="text-[10px] text-text-light dark:text-gray-400">Selesai</h4>
+                        <p class="text-sm font-bold text-dark dark:text-white">1 Tugas</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flex justify-between items-center mb-4">
+                <h3 class="font-bold text-dark dark:text-white text-sm">Daftar Pekerjaan</h3>
+                <span
+                    class="text-[10px] bg-secondary dark:bg-gray-800 px-2 py-1 rounded text-text-light dark:text-gray-400 font-medium">10
+                    Okt 2026</span>
+            </div>
+
+            <div class="space-y-4">
+
+                <!-- Task Card: In Progress -->
+                <div
+                    class="bg-white dark:bg-dark rounded-2xl p-4 shadow-sm border-l-4 border-l-blue-500 border border-gray-100 dark:border-gray-800">
+                    <div class="flex justify-between items-start mb-2">
+                        <span class="bg-blue-100 text-blue-600 text-[9px] font-bold px-2 py-1 rounded">SEDANG
+                            DIKERJAKAN</span>
+                        <span class="text-[10px] font-bold text-dark dark:text-white">JA-9281</span>
+                    </div>
+                    <h4 class="font-bold text-dark dark:text-white text-sm">Cuci AC & Tambah Freon</h4>
+                    <p class="text-[10px] text-text-light dark:text-gray-400 mb-3"><i class="ph-fill ph-map-pin"></i>
+                        Jl. Sudirman No 45, Jakarta</p>
+
+                    <div class="flex gap-2">
+                        <button
+                            class="flex-1 bg-green-500 text-white text-[10px] font-bold py-2 rounded-lg hover:bg-green-600 flex justify-center items-center gap-1 transition-colors">
+                            <i class="ph-bold ph-check"></i> Selesaikan
+                        </button>
+                        <a href="https://maps.google.com/?q=-6.200000,106.816666" target="_blank"
+                            class="w-10 flex items-center justify-center bg-gray-100 dark:bg-gray-800 text-dark dark:text-white rounded-lg hover:bg-gray-200 transition-colors">
+                            <i class="ph-bold ph-navigation-arrow"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Task Card: Scheduled -->
+                <div
+                    class="bg-white dark:bg-dark rounded-2xl p-4 shadow-sm border-l-4 border-l-orange-500 border border-gray-100 dark:border-gray-800 opacity-80">
+                    <div class="flex justify-between items-start mb-2">
+                        <span class="bg-orange-100 text-orange-600 text-[9px] font-bold px-2 py-1 rounded">MENUNGGU -
+                            16:30</span>
+                        <span class="text-[10px] font-bold text-dark dark:text-white">JA-7542</span>
+                    </div>
+                    <h4 class="font-bold text-dark dark:text-white text-sm">Isi Freon Full</h4>
+                    <p class="text-[10px] text-text-light dark:text-gray-400 mb-3"><i class="ph-fill ph-map-pin"></i>
+                        Komplek Mawar Blok C3</p>
+
+                    <div class="flex gap-2">
+                        <button
+                            class="flex-1 bg-primary text-white text-[10px] font-bold py-2 rounded-lg hover:bg-primary-dark flex justify-center items-center gap-1 transition-colors">
+                            <i class="ph-bold ph-car"></i> Mulai Perjalanan
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+        </main>
+
+        <!-- Bottom Actions (GPS Toggle) -->
+        <div
+            class="fixed bottom-0 w-full max-w-md bg-white border-t border-gray-100 px-5 py-4 z-40 pb-safe-area shadow-[0_-4px_20px_-10px_rgba(0,0,0,0.05)] dark:bg-dark-card dark:border-gray-800 transition-colors">
+            <button id="toggleGpsBtn"
+                class="w-full py-3.5 bg-green-500 text-white font-bold text-sm rounded-xl shadow-lg hover:bg-green-600 transition-colors flex items-center justify-center gap-2">
+                <i class="ph-bold ph-broadcast"></i> Aktifkan Sharing Lokasi
+            </button>
+        </div>
+
+    </div>
+
+    <script src="teknisi.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard | Jaya Abadi Raja Service</title>
+
+    <!-- Google Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
+
+    <!-- Phosphor Icons -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#1E6FDB',
+                        secondary: '#F5F8FC',
+                        accent: '#FFD34E',
+                        dark: '#1e293b',
+                        'dark-card': '#0f172a',
+                        text: '#334155',
+                        'text-light': '#64748b'
+                    },
+                    fontFamily: {
+                        poppins: ['Poppins', 'sans-serif'],
+                        inter: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="stylesheet" href="style.css">
+
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <!-- FullCalendar -->
+    <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.10/index.global.min.js'></script>
+</head>
+
+<body class="bg-gray-50 text-text font-inter antialiased dark:bg-dark dark:text-gray-200">
+
+    <!-- Sidebar & Layout -->
+    <div class="flex h-screen overflow-hidden">
+
+        <!-- Sidebar -->
+        <aside
+            class="w-64 bg-white dark:bg-dark-card border-r border-gray-100 dark:border-gray-800 flex flex-col transition-colors z-20">
+            <div class="p-6 flex items-center gap-3 border-b border-gray-100 dark:border-gray-800">
+                <div
+                    class="w-10 h-10 bg-primary rounded-xl flex items-center justify-center text-white font-bold text-xl">
+                    JA
+                </div>
+                <div>
+                    <h1 class="font-poppins font-bold text-dark dark:text-white text-sm">Dashboard</h1>
+                    <p class="text-[10px] text-text-light">Administrator</p>
+                </div>
+            </div>
+
+            <nav class="flex-1 p-4 space-y-2 overflow-y-auto">
+                <a href="#dashboard"
+                    class="nav-link active flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium bg-primary/10 text-primary transition-colors">
+                    <i class="ph-fill ph-squares-four text-lg"></i> Overview
+                </a>
+                <a href="#orders"
+                    class="nav-link flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium text-text-light hover:bg-gray-50 dark:hover:bg-gray-800/50 hover:text-dark dark:hover:text-white transition-colors">
+                    <i class="ph-fill ph-shopping-cart text-lg"></i> Pesanan <span
+                        class="bg-primary text-white text-[10px] px-2 py-0.5 rounded-full ml-auto">3</span>
+                </a>
+                <a href="#calendar"
+                    class="nav-link flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium text-text-light hover:bg-gray-50 dark:hover:bg-gray-800/50 hover:text-dark dark:hover:text-white transition-colors">
+                    <i class="ph-fill ph-calendar text-lg"></i> Kalender
+                </a>
+                <a href="#services"
+                    class="nav-link flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium text-text-light hover:bg-gray-50 dark:hover:bg-gray-800/50 hover:text-dark dark:hover:text-white transition-colors">
+                    <i class="ph-fill ph-wrench text-lg"></i> Layanan
+                </a>
+                <a href="#technicians"
+                    class="nav-link flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium text-text-light hover:bg-gray-50 dark:hover:bg-gray-800/50 hover:text-dark dark:hover:text-white transition-colors">
+                    <i class="ph-fill ph-users text-lg"></i> Teknisi
+                </a>
+            </nav>
+
+            <div class="p-4 border-t border-gray-100 dark:border-gray-800">
+                <button
+                    class="flex items-center gap-3 px-4 py-3 w-full rounded-xl text-sm font-medium text-red-500 hover:bg-red-50 dark:hover:bg-red-900/10 transition-colors">
+                    <i class="ph-bold ph-sign-out text-lg"></i> Logout
+                </button>
+            </div>
+        </aside>
+
+        <!-- Main Content Area -->
+        <main class="flex-1 flex flex-col h-screen overflow-hidden">
+
+            <!-- Topbar -->
+            <header
+                class="bg-white dark:bg-dark-card border-b border-gray-100 dark:border-gray-800 h-16 flex items-center justify-between px-8 shrink-0 z-10 transition-colors">
+                <h2 class="font-poppins font-bold text-lg text-dark dark:text-white" id="pageTitle">Overview</h2>
+
+                <div class="flex items-center gap-4">
+                    <button id="adminThemeToggle"
+                        class="w-10 h-10 rounded-full flex items-center justify-center bg-gray-50 dark:bg-gray-800 text-text-light hover:text-primary transition-colors">
+                        <i class="ph-fill ph-moon"></i>
+                    </button>
+                    <div class="h-8 w-px bg-gray-200 dark:bg-gray-700"></div>
+                    <div class="flex items-center gap-2">
+                        <img src="https://ui-avatars.com/api/?name=Admin+JA&background=1E6FDB&color=fff" alt="Admin"
+                            class="w-8 h-8 rounded-full">
+                        <span class="text-sm font-medium text-dark dark:text-white">Admin JA</span>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Scrollable Content -->
+            <div class="flex-1 overflow-y-auto p-8" id="mainContent">
+
+                <!-- Section: Dashboard Overview -->
+                <div id="section-dashboard" class="content-section space-y-6">
+                    <!-- Stats Grid -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                        <div
+                            class="bg-white dark:bg-dark-card p-5 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-800">
+                            <div class="flex justify-between items-start mb-4">
+                                <div
+                                    class="w-12 h-12 bg-blue-50 dark:bg-blue-900/20 rounded-xl flex items-center justify-center text-primary">
+                                    <i class="ph-fill ph-calendar-check text-2xl"></i>
+                                </div>
+                                <span
+                                    class="bg-green-100 text-green-600 text-[10px] font-bold px-2 py-1 rounded-lg">+12%</span>
+                            </div>
+                            <h4 class="text-xs text-text-light dark:text-gray-400 font-medium">Pesanan Hari Ini</h4>
+                            <p class="text-2xl font-bold text-dark dark:text-white mt-1">15</p>
+                        </div>
+                        <div
+                            class="bg-white dark:bg-dark-card p-5 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-800">
+                            <div class="flex justify-between items-start mb-4">
+                                <div
+                                    class="w-12 h-12 bg-purple-50 dark:bg-purple-900/20 rounded-xl flex items-center justify-center text-purple-500">
+                                    <i class="ph-fill ph-stack text-2xl"></i>
+                                </div>
+                                <span
+                                    class="bg-green-100 text-green-600 text-[10px] font-bold px-2 py-1 rounded-lg">+5%</span>
+                            </div>
+                            <h4 class="text-xs text-text-light dark:text-gray-400 font-medium">Pesanan Bulan Ini</h4>
+                            <p class="text-2xl font-bold text-dark dark:text-white mt-1">340</p>
+                        </div>
+                        <div
+                            class="bg-white dark:bg-dark-card p-5 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-800">
+                            <div class="flex justify-between items-start mb-4">
+                                <div
+                                    class="w-12 h-12 bg-green-50 dark:bg-green-900/20 rounded-xl flex items-center justify-center text-green-500">
+                                    <i class="ph-fill ph-wallet text-2xl"></i>
+                                </div>
+                                <span
+                                    class="bg-green-100 text-green-600 text-[10px] font-bold px-2 py-1 rounded-lg">+24%</span>
+                            </div>
+                            <h4 class="text-xs text-text-light dark:text-gray-400 font-medium">Total Pendapatan</h4>
+                            <p class="text-2xl font-bold text-dark dark:text-white mt-1">Rp 45.2M</p>
+                        </div>
+                        <div
+                            class="bg-white dark:bg-dark-card p-5 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-800">
+                            <div class="flex justify-between items-start mb-4">
+                                <div
+                                    class="w-12 h-12 bg-orange-50 dark:bg-orange-900/20 rounded-xl flex items-center justify-center text-orange-500">
+                                    <i class="ph-fill ph-star text-2xl"></i>
+                                </div>
+                            </div>
+                            <h4 class="text-xs text-text-light dark:text-gray-400 font-medium">Layanan Terlaris</h4>
+                            <p class="text-xl font-bold text-dark dark:text-white mt-1">Cuci AC</p>
+                        </div>
+                    </div>
+
+                    <!-- Charts & Recent Orders -->
+                    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                        <div
+                            class="lg:col-span-2 bg-white dark:bg-dark-card p-6 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-800">
+                            <h3 class="font-poppins font-bold text-dark dark:text-white mb-4">Statistik Pendapatan</h3>
+                            <div class="h-64 relative w-full">
+                                <canvas id="revenueChart"></canvas>
+                            </div>
+                        </div>
+                        <div
+                            class="bg-white dark:bg-dark-card p-6 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-800 overflow-hidden flex flex-col">
+                            <div class="flex justify-between items-center mb-4">
+                                <h3 class="font-poppins font-bold text-dark dark:text-white">Pesanan Masuk</h3>
+                                <a href="#orders" class="text-xs text-primary font-medium hover:underline">Lihat
+                                    Semua</a>
+                            </div>
+                            <div class="flex-1 overflow-y-auto space-y-4 pr-2">
+                                <!-- Order Item -->
+                                <div class="border border-gray-100 dark:border-gray-800 p-3 rounded-xl">
+                                    <div class="flex justify-between items-start mb-2">
+                                        <span class="text-xs font-bold text-dark dark:text-white">JA-9281</span>
+                                        <span
+                                            class="text-[9px] font-bold text-orange-500 bg-orange-50 px-2 py-1 rounded">Menunggu</span>
+                                    </div>
+                                    <p class="text-xs text-text mb-1">Budi Santoso - Cuci AC</p>
+                                    <p class="text-[10px] text-text-light"><i class="ph ph-clock"></i> Hari ini, 14:00
+                                    </p>
+                                </div>
+                                <!-- Order Item -->
+                                <div class="border border-gray-100 dark:border-gray-800 p-3 rounded-xl">
+                                    <div class="flex justify-between items-start mb-2">
+                                        <span class="text-xs font-bold text-dark dark:text-white">JA-7542</span>
+                                        <span
+                                            class="text-[9px] font-bold text-blue-500 bg-blue-50 px-2 py-1 rounded">Dijadwalkan</span>
+                                    </div>
+                                    <p class="text-xs text-text mb-1">Siti Aminah - Tambah Freon</p>
+                                    <p class="text-[10px] text-text-light"><i class="ph ph-clock"></i> Hari ini, 16:30
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Section: Calendar -->
+                <div id="section-calendar"
+                    class="content-section hidden bg-white dark:bg-dark-card p-6 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-800 h-[calc(100vh-10rem)]">
+                    <div id="calendar"></div>
+                </div>
+
+                <!-- Section: Orders -->
+                <div id="section-orders" class="content-section hidden space-y-6">
+                    <div
+                        class="bg-white dark:bg-dark-card p-6 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-800">
+                        <div class="flex justify-between items-center mb-6">
+                            <h3 class="font-poppins font-bold text-dark dark:text-white">Daftar Pesanan</h3>
+                            <div class="flex gap-2">
+                                <input type="text" placeholder="Cari ID/Nama..."
+                                    class="text-sm bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl px-4 py-2 focus:outline-none focus:border-primary text-dark dark:text-white">
+                                <button
+                                    class="bg-primary text-white px-4 py-2 rounded-xl text-sm font-medium hover:bg-primary-dark transition-colors flex items-center gap-1"><i
+                                        class="ph-bold ph-funnel"></i> Filter</button>
+                            </div>
+                        </div>
+                        <div class="overflow-x-auto">
+                            <table class="w-full text-left text-sm whitespace-nowrap">
+                                <thead class="text-text-light border-b border-gray-100 dark:border-gray-800">
+                                    <tr>
+                                        <th class="pb-3 font-medium">Order ID</th>
+                                        <th class="pb-3 font-medium">Pelanggan</th>
+                                        <th class="pb-3 font-medium">Layanan</th>
+                                        <th class="pb-3 font-medium">Jadwal</th>
+                                        <th class="pb-3 font-medium">Status</th>
+                                        <th class="pb-3 font-medium text-right">Aksi</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="text-dark dark:text-gray-300" id="ordersTableBody">
+                                    <!-- Rendered via JS -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Section: Services -->
+                <div id="section-services" class="content-section hidden space-y-6">
+                    <div class="flex justify-between items-center">
+                        <h3 class="font-poppins font-bold text-dark dark:text-white">Katalog Layanan</h3>
+                        <button
+                            class="bg-primary text-white px-4 py-2 rounded-xl text-sm font-medium hover:bg-primary-dark transition-colors flex items-center gap-1"><i
+                                class="ph-bold ph-plus"></i> Tambah Layanan</button>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="servicesGrid">
+                        <!-- Rendered via JS -->
+                    </div>
+                </div>
+
+                <!-- Section: Technicians -->
+                <div id="section-technicians" class="content-section hidden space-y-6">
+                    <div class="flex justify-between items-center">
+                        <h3 class="font-poppins font-bold text-dark dark:text-white">Daftar Teknisi</h3>
+                        <button
+                            class="bg-primary text-white px-4 py-2 rounded-xl text-sm font-medium hover:bg-primary-dark transition-colors flex items-center gap-1"><i
+                                class="ph-bold ph-user-plus"></i> Tambah Teknisi</button>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="techniciansGrid">
+                        <!-- Rendered via JS -->
+                    </div>
+                </div>
+
+            </div>
+        </main>
+    </div>
+
+    <!-- Admin Script -->
+    <script src="admin.js"></script>
+</body>
+
+</html>
