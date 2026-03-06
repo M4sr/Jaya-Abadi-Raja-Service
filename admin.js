@@ -174,17 +174,24 @@ document.addEventListener('DOMContentLoaded', () => {
     const calendarEl = document.getElementById('calendar');
 
     if (calendarEl) {
+        const isMobile = window.innerWidth < 768;
+
         calendarInstance = new FullCalendar.Calendar(calendarEl, {
-            initialView: 'timeGridWeek',
+            initialView: isMobile ? 'timeGridDay' : 'timeGridWeek',
             headerToolbar: {
                 left: 'prev,next today',
                 center: 'title',
-                right: 'dayGridMonth,timeGridWeek,timeGridDay'
+                right: isMobile ? 'timeGridDay,listWeek' : 'dayGridMonth,timeGridWeek,timeGridDay'
             },
             themeSystem: 'standard',
             height: '100%',
             slotMinTime: '08:00:00',
             slotMaxTime: '20:00:00',
+            eventTimeFormat: {
+                hour: '2-digit',
+                minute: '2-digit',
+                meridiem: false
+            },
             events: [
                 {
                     title: 'Cuci AC - Budi (JA-9281)',
