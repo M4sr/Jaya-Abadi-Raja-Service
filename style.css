@@ -5,7 +5,8 @@
   --safe-area-inset-bottom: env(safe-area-inset-bottom, 0px);
 }
 
-html, body {
+html,
+body {
   -webkit-tap-highlight-color: transparent;
   scroll-behavior: smooth;
 }
@@ -30,6 +31,7 @@ html, body {
   0% {
     background-position: -1000px 0;
   }
+
   100% {
     background-position: 1000px 0;
   }
@@ -47,9 +49,17 @@ html, body {
 
 /* Custom Float Animation */
 @keyframes float {
-  0% { transform: translateY(0px); }
-  50% { transform: translateY(-5px); }
-  100% { transform: translateY(0px); }
+  0% {
+    transform: translateY(0px);
+  }
+
+  50% {
+    transform: translateY(-5px);
+  }
+
+  100% {
+    transform: translateY(0px);
+  }
 }
 
 .animate-float {
@@ -62,6 +72,7 @@ html, body {
     opacity: 0;
     transform: translateY(20px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -70,4 +81,18 @@ html, body {
 
 .modal-enter {
   animation: slideUpFade 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* FullCalendar Mobile Adjustments */
+@media (max-width: 768px) {
+  .fc .fc-toolbar.fc-header-toolbar {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .fc-toolbar-chunk {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+  }
 }
