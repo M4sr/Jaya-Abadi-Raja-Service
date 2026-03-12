@@ -1,0 +1,278 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  DEVELOPER
+  OWNER
+  ADMIN
+  TEKNISI
+  PELANGGAN
+}
+
+enum TeknisiStatus {
+  ACTIVE
+  INACTIVE
+  ON_DUTY
+}
+
+enum BookingStatus {
+  PENDING_WA
+  CONFIRMED
+  ASSIGNED
+  ON_THE_WAY
+  ARRIVED
+  IN_PROGRESS
+  DONE
+  CANCELLED
+}
+
+enum SettingType {
+  TEXT
+  NUMBER
+  BOOLEAN
+  JSON
+  IMAGE
+}
+
+enum TipeTransaksi {
+  PEMASUKAN
+  PENGELUARAN
+}
+
+model User {
+  id            String    @id @default(cuid())
+  name          String
+  email         String?   @unique
+  phone         String?   @unique
+  username      String?   @unique
+  password      String?
+  avatar        String?
+  role          Role      @default(PELANGGAN)
+  isActive      Boolean   @default(true)
+  fcmToken      String?   @db.Text
+  lastLoginAt   DateTime?
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  teknisiProfile TeknisiProfile?
+  bookings       Booking[]       @relation("PelangganBookings")
+  activityLogs   ActivityLog[]
+  articles       Article[]
+}
+
+model TeknisiProfile {
+  id            String    @id @default(cuid())
+  userId        String    @unique
+  user          User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  nik           String?
+  address       String?
+  skills        Json?
+  areaCoverage  Json?
+  status        TeknisiStatus @default(INACTIVE)
+  ratingAvg     Float     @default(0.0)
+  totalJobs     Int       @default(0)
+  bio           String?   @db.Text
+
+  bookings      Booking[] @relation("TeknisiBookings")
+  locations     TeknisiLocation[]
+}
+
+model KategoriLayanan {
+  id        String    @id @default(cuid())
+  nama      String
+  slug      String    @unique
+  urutan    Int       @default(0)
+  isActive  Boolean   @default(true)
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+
+  layanan   Layanan[]
+}
+
+model Layanan {
+  id              String   @id @default(cuid())
+  kategoriId      String?
+  kategori        KategoriLayanan? @relation(fields: [kategoriId], references: [id])
+  nama            String
+  slug            String   @unique
+  deskripsi       String?
+  deskripsiLengkap String? @db.Text
+  hargaMulai      Int      @default(0)
+  estimasiMenit   Int      @default(60)
+  ikon            String?
+  foto            String?
+  fotoGaleri      Json?
+  isActive        Boolean  @default(true)
+  urutan          Int      @default(0)
+  metaTitle       String?
+  metaDescription String?
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  bookings        Booking[]
+}
+
+model GaleriFoto {
+  id        String   @id @default(cuid())
+  judul     String?
+  fotoUrl   String
+  kategori  String   @default("Umum")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Legalitas {
+  id          String   @id @default(cuid())
+  namaDokumen String
+  fileUrl     String
+  coverUrl    String?
+  urutan      Int      @default(0)
+  createdAt   DateTime @default(now())
+}
+
+model Booking {
+  id             String        @id @default(cuid())
+  kodeBooking    String        @unique
+  pelangganId    String?
+  pelanggan      User?         @relation("PelangganBookings", fields: [pelangganId], references: [id])
+  teknisiId      String?
+  teknisi        TeknisiProfile? @relation("TeknisiBookings", fields: [teknisiId], references: [id])
+  layananId      String?
+  layanan        Layanan?      @relation(fields: [layananId], references: [id])
+  namaPelanggan  String
+  noHp           String
+  email          String?
+  alamat         String        @db.Text
+  latitude       Float?
+  longitude      Float?
+  mapsLink       String?       @db.Text
+  merekAc        String?
+  kapasitasAc    String?
+  jumlahUnit     Int           @default(1)
+  keluhan        String?       @db.Text
+  jadwalTanggal  DateTime
+  jadwalWaktu    String
+  status         BookingStatus @default(PENDING_WA)
+  catatanTeknisi String?       @db.Text
+  fotoBefore     Json?
+  fotoAfter      Json?
+  rating         Int?
+  reviewKomentar String?       @db.Text
+  waSentAt       DateTime?
+  confirmedAt    DateTime?
+  doneAt         DateTime?
+  createdAt      DateTime      @default(now())
+  updatedAt      DateTime      @updatedAt
+
+  statusLogs     BookingStatusLog[]
+  keuangan       Keuangan?
+  pushSubscriptions PushSubscription[]
+}
+
+model PushSubscription {
+  id        String   @id @default(cuid())
+  bookingId String?
+  booking   Booking? @relation(fields: [bookingId], references: [id], onDelete: Cascade)
+  endpoint  String   @db.Text
+  p256dh    String
+  auth      String
+  createdAt DateTime @default(now())
+}
+
+model BookingStatusLog {
+  id         String   @id @default(cuid())
+  bookingId  String
+  booking    Booking  @relation(fields: [bookingId], references: [id], onDelete: Cascade)
+  status     BookingStatus
+  keterangan String?  @db.Text
+  fotoUrls   Json?
+  changedBy  String?
+  createdAt  DateTime @default(now())
+}
+
+model TeknisiLocation {
+  id         String   @id @default(cuid())
+  teknisiId  String
+  teknisi    TeknisiProfile @relation(fields: [teknisiId], references: [id], onDelete: Cascade)
+  bookingId  String?
+  latitude   Float
+  longitude  Float
+  accuracy   Float?
+  heading    Float?
+  createdAt  DateTime @default(now())
+}
+
+model Article {
+  id              String   @id @default(cuid())
+  userId          String
+  author          User     @relation(fields: [userId], references: [id])
+  kategori        String
+  judul           String
+  slug            String   @unique
+  konten          String   @db.LongText
+  excerpt         String?  @db.Text
+  foto            String?
+  tags            Json?
+  isPublished     Boolean  @default(false)
+  publishedAt     DateTime?
+  views           Int      @default(0)
+  metaTitle       String?
+  metaDescription String?
+  metaKeywords    String?
+  ogImage         String?
+  readingTimeMin  Int      @default(1)
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+}
+
+model Setting {
+  id          String      @id @default(cuid())
+  key         String      @unique
+  value       String?     @db.Text
+  group       String?
+  type        SettingType @default(TEXT)
+  label       String?
+  description String?     @db.Text
+  updatedAt   DateTime    @updatedAt
+}
+
+model ActivityLog {
+  id          String   @id @default(cuid())
+  userId      String?
+  user        User?    @relation(fields: [userId], references: [id], onDelete: SetNull)
+  action      String
+  modelType   String?
+  modelId     String?
+  oldValues   Json?
+  newValues   Json?
+  ipAddress   String?
+  userAgent   String?
+  createdAt   DateTime @default(now())
+}
+
+model Keuangan {
+  id            String        @id @default(cuid())
+  tanggal       DateTime      @default(now())
+  tipe          TipeTransaksi
+  kategori      String
+  nominal       Int
+  keterangan    String?       @db.Text
+  
+  // Opsional referensi silang
+  bookingId     String?       @unique
+  booking       Booking?      @relation(fields: [bookingId], references: [id])
+  
+  teknisiId     String?
+  
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+}
